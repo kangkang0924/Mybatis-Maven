@@ -19,18 +19,23 @@ public class MybatisTest {
     public void findUserByIdTest() throws IOException {
         //1.读取配置文件
         String resource = "mybatis-config.xml";
+
         //得到配置文件流
         InputStream inputStream = Resources.getResourceAsStream(resource);
+
         //2.根据配置文件信息，创建会话工厂
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
         //3.通过工厂得到sqlsession
         SqlSession sqlSession = sqlSessionFactory.openSession();
+
         //4.执行映射文件周的SQL，并返回映射结果
         //UserInfo userinfo = sqlSession.selectOne("com.mybatis.mapper.UserInfoMapper.findUserInfoById", 1);
 
         //4.调用接口中的方法执行sql
         UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
         UserInfo userInfoById = userInfoMapper.findUserInfoById(1);
+
         //5.打印输出结果
         System.out.println(userInfoById.toString());
         //6.关闭sqlsession
@@ -47,9 +52,12 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //3.通过工厂得到sqlsession
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<UserInfo> user =
-                sqlSession.selectList("com.mybatis.mapper.UserInfoMapper.findUserInfoByName", "张");
-        for (UserInfo userInfo : user) {
+
+//        List<UserInfo> user =
+//                sqlSession.selectList("com.mybatis.mapper.UserInfoMapper.findUserInfoByName", "张");
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+        List<UserInfo> userInfoByName = userInfoMapper.findUserInfoByName("张三");
+        for (UserInfo userInfo : userInfoByName) {
             System.out.println(userInfo);
         }
         //6.关闭sqlsession
@@ -66,16 +74,21 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //3.通过工厂得到sqlsession
         SqlSession sqlSession = sqlSessionFactory.openSession();
+
         //创建User对象
+
         UserInfo user = new UserInfo();
         user.setUserName("李雷");
         user.setPassword("123");
-        int rows = sqlSession.insert("com.mybatis.mapper.UserInfoMapper.addUserInfo", user);
-        if (rows > 0) {
-            System.out.println("插入了" + rows + "条数据");
-        } else {
-            System.out.println("插入失败");
-        }
+//        int rows = sqlSession.insert("com.mybatis.mapper.UserInfoMapper.addUserInfo", user);
+//        if (rows > 0) {
+//            System.out.println("插入了" + rows + "条数据");
+//        } else {
+//            System.out.println("插入失败");
+//        }
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+
+        userInfoMapper.addUserInfo(user);
         //提交事务
         sqlSession.commit();
         //6.关闭sqlsession
@@ -93,7 +106,10 @@ public class MybatisTest {
         //3.通过工厂得到sqlsession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         //加载编号为2的对象
-        UserInfo user = sqlSession.selectOne("com.mybatis.mapper.UserInfoMapper.findUserInfoById", 2);
+
+        //UserInfo user = sqlSession.selectOne("com.mybatis.mapper.UserInfoMapper.findUserInfoById", 2);
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+        UserInfo user = userInfoMapper.findUserInfoById(1);
         user.setPassword("789");
         int rows = sqlSession.update("com.mybatis.mapper.UserInfoMapper.updateUserInfo", user);
 

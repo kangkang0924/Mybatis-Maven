@@ -20,7 +20,7 @@
     <select id="updateUserInfo" parameterType="com.mybatis.pojo.UserInfo">
         update user_info set userName = #{userName},password = #{password} where id = #{id}
     </select>
-    <select id="deleteUserInfo" parameterType="String">
+    <select id="deleteUserInfo" parameterType="int">
         delete from user_info where id = #{id}
     </select>
 </mapper>

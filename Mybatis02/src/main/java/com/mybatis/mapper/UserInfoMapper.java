@@ -2,6 +2,8 @@ package com.mybatis.mapper;
 
 import com.mybatis.pojo.UserInfo;
 
+import java.util.List;
+
 /**
  * @author 韩德康~
  * @version 1.0
@@ -13,5 +15,12 @@ public interface UserInfoMapper {
      * 3.方法的返回值和mapper.xml文件标签的resultType一致
      * 映射文件中的namespace的值就是接口的全类名（接口）
      */
-    public UserInfo findUserInfoById(int id);
+    UserInfo findUserInfoById(int id);
+    List<UserInfo> findUserInfoByName(String name);
+    /**
+     *
+     */
+    int addUserInfo(UserInfo userInfo);
+    int updateUserInfo (UserInfo userInfo);
+    int deleteUserInfo (int id);
 }
