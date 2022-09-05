@@ -7,20 +7,20 @@
 
 
     <!--    id：SQL语句的唯一标识-->
-    <select id="findUserInfoById" parameterType="int" resultType="com.mybatis.pojo.UserInfo">
+    <select id="findUserInfoById" parameterType="int" resultType="userInfo">
         select * from user_info where id = #{id}
     </select>
 <!--    -->
-    <select id="findUserInfoByName" parameterType="String" resultType="com.mybatis.pojo.UserInfo">
+    <select id="findUserInfoByName" parameterType="String" resultType="userInfo">
         select * from user_info where userName like '%' + #{search_name} + '%'
     </select>
-    <select id="addUserInfo" parameterType="com.mybatis.pojo.UserInfo">
+    <select id="addUserInfo" parameterType="UserInfo" resultType="int">
         insert into user_info(userName,password) values (#{userName},#{password})
     </select>
-    <select id="updateUserInfo" parameterType="com.mybatis.pojo.UserInfo">
+    <select id="updateUserInfo" parameterType="UserInfo" resultType="int">
         update user_info set userName = #{userName},password = #{password} where id = #{id}
     </select>
-    <select id="deleteUserInfo" parameterType="int">
+    <select id="deleteUserInfo" parameterType="int" resultType="int">
         delete from user_info where id = #{id}
     </select>
 </mapper>

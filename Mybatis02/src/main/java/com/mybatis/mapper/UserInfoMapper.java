@@ -20,7 +20,7 @@ public interface UserInfoMapper {
     /**
      *
      */
-    int addUserInfo(UserInfo userInfo);
-    int updateUserInfo (UserInfo userInfo);
-    int deleteUserInfo (int id);
+    void addUserInfo(UserInfo userInfo);
+    void updateUserInfo (UserInfo userInfo);
+    void deleteUserInfo (int id);
 }
