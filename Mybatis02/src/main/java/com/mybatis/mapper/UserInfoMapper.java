@@ -23,4 +23,8 @@ public interface UserInfoMapper {
     void addUserInfo(UserInfo userInfo);
     void updateUserInfo (UserInfo userInfo);
     void deleteUserInfo (int id);
+    List<UserInfo> findUserInfoByNameAndXex(UserInfo userInfo);
+    List<UserInfo> findUserInfoByNameandSexWithIf(UserInfo userInfo);
+    List<UserInfo> findUserInfo_Choose(UserInfo userInfo);
+    void updateUserInfoWithSet(UserInfo user);
 }

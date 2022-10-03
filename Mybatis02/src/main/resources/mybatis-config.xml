@@ -8,7 +8,7 @@
         <setting name="logImpl" value="LOG4J"/>
     </settings>
     <typeAliases>
-      <!--  <typeAlias type="com.mybatis.pojo.UserInfo" alias="UserInfo"></typeAlias>-->
+      <!--  <typeAlias type="com.mybatis.pojo01.UserInfo" alias="UserInfo"></typeAlias>-->
         <package name="com.mybatis.pojo"/>
     </typeAliases>
     <!-- environments元素用于环境配置，也就是数据源配置，environments元素体中可以配置多个数据库环境 -->

@@ -5,22 +5,125 @@
 <!--        namespace命名空间，包名+SQL映射文件名-->
 <mapper namespace="com.mybatis.mapper.UserInfoMapper">
 
+    <sql id="userInfoColumns"> id, userName, password</sql>
+    <resultMap id="userInfoMap" type="userInfo">
+        <result column="id" property="id"/>
+        <result column="userName" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="realName" property="realName"/>
 
+    </resultMap>
     <!--    id：SQL语句的唯一标识-->
-    <select id="findUserInfoById" parameterType="int" resultType="userInfo">
+    <select id="findUserInfoById" parameterType="int" resultType="userInfo" resultMap="userInfoMap">
+        <!--        <include refid="userInfoColumns"></include>-->
+
         select * from user_info where id = #{id}
     </select>
-<!--    -->
+    <!--   根据用户名模糊查询 -->
     <select id="findUserInfoByName" parameterType="String" resultType="userInfo">
-        select * from user_info where userName like '%' + #{search_name} + '%'
+        select *
+        from user_info
+        where userName like '%' + #{search_name} + '%'
     </select>
-    <select id="addUserInfo" parameterType="UserInfo" resultType="int">
-        insert into user_info(userName,password) values (#{userName},#{password})
+
+    <select id="findUserInfoOrderByColumn">
+        select *
+        from user_info
+        order by ${value} desc
     </select>
-    <select id="updateUserInfo" parameterType="UserInfo" resultType="int">
-        update user_info set userName = #{userName},password = #{password} where id = #{id}
+
+    <!--    添加用户-->
+    <insert id="addUserInfo" parameterType="UserInfo" keyProperty="id" useGeneratedKeys="true">
+        insert into user_info(userName, password)
+        values (#{userName}, #{password})
+    </insert>
+    <update id="updateUserInfo" parameterType="UserInfo">
+        update user_info
+        set userName = #{userName},
+            password = #{password}
+        where id = #{id}
+    </update>
+    <delete id="deleteUserInfo" parameterType="int">
+        delete
+        from user_info
+        where id = #{id}
+    </delete>
+    <select id="findUserInfoByNameAndXex" parameterType="userInfo" resultMap="userInfoMap">
+        select *
+        from user_info
+        where userName like '%' + #{userName} + '%'
+          and sex = #{sex};
     </select>
-    <select id="deleteUserInfo" parameterType="int" resultType="int">
-        delete from user_info where id = #{id}
+    <!--    动态SQL-if -->
+    <!--    <select id="findUserInfoByNameandSexWithIf" parameterType="userInfo" resultMap="userInfoMap">-->
+    <!--        select * from user_info-->
+    <!--        &#45;&#45; where-->
+    <!--            <where>-->
+    <!--                <if test="userName != null and userName != ''">-->
+    <!--                    and userName like '%'+#{userName}+'%'-->
+    <!--                </if>-->
+    <!--                <if test="sex != null and sex != ''">-->
+    <!--                    and sex = #{sex}-->
+    <!--                </if>-->
+    <!--            </where>-->
+    <!--    </select>-->
+
+    <select id="findUserInfoByNameandSexWithIf" parameterType="userInfo" resultMap="userInfoMap">
+        select * from user_info
+        -- where
+        <trim prefix="where" prefixOverrides="and">
+            <if test="userName != null and userName != ''">
+                userName like '%'+#{userName}+'%'
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+        </trim>
+    </select>
+
+    <!--  动态SQL choose when otherwise  -->
+    <select id="findUserInfo_Choose" parameterType="userInfo" resultType="userInfo" resultMap="userInfoMap">
+        select * from user_info
+        <where>
+            <choose>
+                <when test="userName!=null and userName!=''">and userName like '%' + #{userName} + '%'</when>
+                <when test="sex!=null and sex!=''">and sex=#{sex}</when>
+                <otherwise>and email is not null</otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--   动态sql if+set -->
+    <!--    <update id="updateUserInfoWithSet" parameterType="userInfo">-->
+    <!--        update user_info-->
+    <!--            <set>-->
+    <!--                <if test="userName != null and userName != ''">-->
+    <!--                    userName = #{userName},-->
+    <!--                </if>-->
+    <!--                <if test="password != null and password != ''">-->
+    <!--                    password = #{password},-->
+    <!--                </if>-->
+    <!--            </set>-->
+    <!--        where id = #{id}-->
+    <!--    </update>-->
+    <update id="updateUserInfoWithSet" parameterType="userInfo">
+        update user_info
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+            <if test="userName != null and userName != ''">
+                userName = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+        </trim>
+    </update>
+    <!--    动态sql foreach-->
+    <select id="selectUserByIds" parameterType="list" resultType="userInfo">
+        select *
+        from user_info
+        where id in
+        <foreach collection="list" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
     </select>
 </mapper>

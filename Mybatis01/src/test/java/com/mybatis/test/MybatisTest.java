@@ -12,7 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.testng.annotations.Test;
 
-import com.mybatis.pojo.UserInfo;
+import com.mybatis.pojo01.UserInfo;
 
 
 public class MybatisTest {

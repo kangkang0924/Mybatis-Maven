@@ -7,17 +7,17 @@
 
 
 <!--    &lt;!&ndash;    id：SQL语句的唯一标识&ndash;&gt;-->
-<!--    <select id="findUserInfoById" parameterType="int" resultType="com.mybatis.pojo.UserInfo">-->
+<!--    <select id="findUserInfoById" parameterType="int" resultType="com.mybatis.pojo01.UserInfo">-->
 <!--        select * from user_info where id = #{id}-->
 <!--    </select>-->
 <!--&lt;!&ndash;    &ndash;&gt;-->
-<!--    <select id="findUserInfoByName" parameterType="String" resultType="com.mybatis.pojo.UserInfo">-->
+<!--    <select id="findUserInfoByName" parameterType="String" resultType="com.mybatis.pojo01.UserInfo">-->
 <!--        select * from user_info where userName like '%' + #{search_name} + '%'-->
 <!--    </select>-->
-<!--    <select id="addUserInfo" parameterType="com.mybatis.pojo.UserInfo">-->
+<!--    <select id="addUserInfo" parameterType="com.mybatis.pojo01.UserInfo">-->
 <!--        insert into user_info(userName,password) values (#{userName},#{password})-->
 <!--    </select>-->
-<!--    <select id="updateUserInfo" parameterType="com.mybatis.pojo.UserInfo">-->
+<!--    <select id="updateUserInfo" parameterType="com.mybatis.pojo01.UserInfo">-->
 <!--        update user_info set userName = #{userName},password = #{password} where id = #{id}-->
 <!--    </select>-->
 <!--    <select id="deleteUserInfo" parameterType="String">-->

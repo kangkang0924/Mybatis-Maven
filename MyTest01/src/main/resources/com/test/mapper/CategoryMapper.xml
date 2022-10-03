@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.test.mapper.CategoryMapper">
+
+
+    <resultMap id="CategoryMap" type="category">
+        <result column="id" property="cid"/>
+        <result column="cname" property="cname"/>
+        <result column="describe" property="describe"/>
+
+    </resultMap>
+    <!--    id：SQL语句的唯一标识-->
+
+    <!--   根据用户名模糊查询 -->
+
+
+    <!--    添加用户-->
+    <insert id="addCategory" parameterType="category" keyProperty="id" useGeneratedKeys="true">
+        insert into Category(cname, describe)
+        values (#{cname}, #{describe})
+    </insert>
+    <update id="updateCategory" parameterType="category">
+        update Category
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{cid}">
+            <if test="cname != null and cname != ''">
+                cname = #{cname},
+            </if>
+            <if test="describe != null and describe != ''">
+                describe = #{describe},
+            </if>
+        </trim>
+    </update>
+    <select id="findCategoryById" parameterType="int" resultType="category" resultMap="CategoryMap">
+        <!--        <include refid="userInfoColumns"></include>-->
+
+        select * from Category where id = #{id}
+    </select>
+</mapper>

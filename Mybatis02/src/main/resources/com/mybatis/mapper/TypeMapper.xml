@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.mybatis.mapper.TypeMapper">
+    <select id="findTypeById" parameterType="int" resultType="type" resultMap="typeMap">
+        select *
+        from type
+        where id = #{id}
+    </select>
+    <resultMap id="typeMap" type="type">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <collection property="pis" column="id"
+                    select="com.mybatis.mapper.ProductInfoMapper.finProductInfoById">
+        </collection>
+    </resultMap>
+</mapper>

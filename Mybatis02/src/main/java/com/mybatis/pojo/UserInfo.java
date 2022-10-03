@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class UserInfo {
     private int id;
-    private String  userName;
+    private String userName;
     private String password;
     private String realName;
     private String sex;

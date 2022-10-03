@@ -1,16 +1,17 @@
 package com.mybatis.test;
 
+import com.mybatis.mapper.PersonMapper;
+import com.mybatis.mapper.TypeMapper;
 import com.mybatis.mapper.UserInfoMapper;
+import com.mybatis.pojo.Person;
+import com.mybatis.pojo.Type;
 import com.mybatis.pojo.UserInfo;
 import com.mybatis.utils.MybatisUtils;
-import org.apache.ibatis.io.Resources;
+
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -32,7 +33,7 @@ public class MybatisTest {
 
         //4.调用接口中的方法执行sql
         UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
-        UserInfo userInfoById = userInfoMapper.findUserInfoById(1);
+        UserInfo userInfoById = userInfoMapper.findUserInfoById(2);
 
         //5.打印输出结果
         System.out.println(userInfoById.toString());
@@ -87,8 +88,9 @@ public class MybatisTest {
 //            System.out.println("插入失败");
 //        }
         UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
-
         userInfoMapper.addUserInfo(user);
+        System.out.println("插入成功");
+        System.out.println(user.getId());
         //提交事务
         sqlSession.commit();
         //6.关闭sqlsession
@@ -151,6 +153,139 @@ public class MybatisTest {
 //        }
         //提交事务
         sqlSession.commit();
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void findUserInfoByNameAndXexTest() throws IOException {
+        //1.读取配置文件
+        //String resource = "mybatis-config.xml";
+        //得到配置文件流
+        //InputStream inputStream = Resources.getResourceAsStream(resource);
+        //2.根据配置文件信息，创建会话工厂
+        //SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //3.通过工厂得到sqlsession
+        //SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+//        List<UserInfo> user =
+//                sqlSession.selectList("com.mybatis.mapper.UserInfoMapper.findUserInfoByName", "张");
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+        UserInfo user = new UserInfo();
+        user.setUserName("张三");
+        user.setSex("1");
+        List<UserInfo> userInfoByName = userInfoMapper.findUserInfoByNameAndXex(user);
+        for (UserInfo userInfo : userInfoByName) {
+            System.out.println(userInfo);
+        }
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void findUserInfoByNameandSexWithIfTest() throws IOException {
+        //1.读取配置文件
+        //String resource = "mybatis-config.xml";
+        //得到配置文件流
+        //InputStream inputStream = Resources.getResourceAsStream(resource);
+        //2.根据配置文件信息，创建会话工厂
+        //SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //3.通过工厂得到sqlsession
+        //SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+//        List<UserInfo> user =
+//                sqlSession.selectList("com.mybatis.mapper.UserInfoMapper.findUserInfoByName", "张");
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+        UserInfo user = new UserInfo();
+        user.setUserName("张三");
+        user.setSex("1");
+        List<UserInfo> userInfos = userInfoMapper.findUserInfoByNameandSexWithIf(user);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo);
+        }
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void findUserInfo_ChooseTest() throws IOException {
+        //1.读取配置文件
+        //String resource = "mybatis-config.xml";
+        //得到配置文件流
+        //InputStream inputStream = Resources.getResourceAsStream(resource);
+        //2.根据配置文件信息，创建会话工厂
+        //SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //3.通过工厂得到sqlsession
+        //SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+//        List<UserInfo> user =
+//                sqlSession.selectList("com.mybatis.mapper.UserInfoMapper.findUserInfoByName", "张");
+        UserInfoMapper userInfoMapper = sqlSession.getMapper(UserInfoMapper.class);
+        UserInfo user = new UserInfo();
+        user.setUserName("张三");
+        user.setSex("1");
+        user.setEmail("123@com");
+        List<UserInfo> userInfos = userInfoMapper.findUserInfo_Choose(user);
+        for (UserInfo userInfo : userInfos) {
+            System.out.println(userInfo);
+        }
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void updateUserInfoWithSetTest() throws IOException {
+        SqlSession sqlsession = MybatisUtils.getSession();
+        //加载编号为2的对象
+        //      UserInfo user=sqlsession.selectOne("com.mybatis.mapper.UserInfoMapper.findUserInfoById",2);
+        UserInfo user = new UserInfo();
+        user.setId(2);
+        user.setUserName("张三");
+        user.setPassword("789");
+//        int rows = sqlsession.update("com.mybatis.mapper.UserInfoMapper.updateUserInfo",user);
+        /*if(rows>0){
+            System.out.println("修改了"+ rows + "条数据");
+        }else{
+            System.out.println("修改失败");
+        }*/
+        UserInfoMapper usermapper = sqlsession.getMapper(UserInfoMapper.class);
+        usermapper.updateUserInfoWithSet(user);
+        System.out.println("更新成功");
+        //提交事务
+        sqlsession.commit();
+        //6.关闭sqlsession
+        sqlsession.close();
+    }
+
+    @Test
+    public void findPersonByIdTest() throws IOException {
+
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+        Person person = personMapper.findPersonById(1);
+        System.out.println("person = " + person);
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void findPersonById2Test() {
+
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+        Person person = personMapper.findPersonById2(1);
+        System.out.println("person = " + person);
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void findTypeIdTest() {
+
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        TypeMapper TypeMapper = sqlSession.getMapper(TypeMapper.class);
+        Type type = TypeMapper.findTypeById(1);
+        System.out.println(type);
         //6.关闭sqlsession
         sqlSession.close();
     }
