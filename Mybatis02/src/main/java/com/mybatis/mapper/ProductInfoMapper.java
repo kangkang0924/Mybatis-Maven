@@ -9,4 +9,5 @@ import com.mybatis.pojo.ProductInfo;
  */
 public interface ProductInfoMapper {
     ProductInfo finProductInfoById (int id);
+    void addProductInfo(ProductInfo pi);
 }

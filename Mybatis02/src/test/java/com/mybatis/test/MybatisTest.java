@@ -1,9 +1,11 @@
 package com.mybatis.test;
 
 import com.mybatis.mapper.PersonMapper;
+import com.mybatis.mapper.ProductInfoMapper;
 import com.mybatis.mapper.TypeMapper;
 import com.mybatis.mapper.UserInfoMapper;
 import com.mybatis.pojo.Person;
+import com.mybatis.pojo.ProductInfo;
 import com.mybatis.pojo.Type;
 import com.mybatis.pojo.UserInfo;
 import com.mybatis.utils.MybatisUtils;
@@ -287,6 +289,38 @@ public class MybatisTest {
         Type type = TypeMapper.findTypeById(1);
         System.out.println(type);
         //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void addTypeTest(){
+        SqlSession sqlSession = MybatisUtils.getSession();
+        TypeMapper typeMapper = sqlSession.getMapper(TypeMapper.class);
+        Type type = new Type();
+        type.setName("打印机");
+        typeMapper.addType(type);
+
+        ProductInfo p1 = new ProductInfo();
+        ProductInfo p2 = new ProductInfo();
+        p1.setCode("1111");
+        p1.setName("HP1306");
+        p2.setCode("2222");
+        p2.setName("HP11103");
+        p1.setType(type);
+        p2.setType(type);
+        ProductInfoMapper productInfoMapper = sqlSession.getMapper(ProductInfoMapper.class);
+        productInfoMapper.addProductInfo(p1);
+        productInfoMapper.addProductInfo(p2);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void deleteTypeByIdTest(){
+        int id = 3;
+        SqlSession sqlSession = MybatisUtils.getSession();
+        TypeMapper typeMapper = sqlSession.getMapper(TypeMapper.class);
+        typeMapper.deleteTypeById(id);
+
+        sqlSession.commit();
         sqlSession.close();
     }
 }

@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        namespace命名空间，包名+SQL映射文件名-->
 <mapper namespace="com.mybatis.mapper.TypeMapper">
+    <delete id="deleteTypeById" parameterType="int">
+        delete
+        from product_info
+        where tid = #{id};
+        delete
+        from type
+        where id = #{id};
+    </delete>
     <select id="findTypeById" parameterType="int" resultType="type" resultMap="typeMap">
         select *
         from type
@@ -16,4 +24,7 @@
                     select="com.mybatis.mapper.ProductInfoMapper.finProductInfoById">
         </collection>
     </resultMap>
+    <insert id="addType" parameterType="type" keyProperty="id" useGeneratedKeys="true">
+        insert into type(name) values (#{name})
+    </insert>
 </mapper>

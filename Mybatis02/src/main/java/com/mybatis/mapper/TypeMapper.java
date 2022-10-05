@@ -8,5 +8,9 @@ import com.mybatis.pojo.Type;
  * @time 2022/10/03/11:15
  */
 public interface TypeMapper {
-    Type findTypeById (int id);
+    Type findTypeById(int id);
+
+    void addType(Type type);
+
+    void deleteTypeById(int id);
 }
