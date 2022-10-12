@@ -1,13 +1,7 @@
 package com.mybatis.test;
 
-import com.mybatis.mapper.PersonMapper;
-import com.mybatis.mapper.ProductInfoMapper;
-import com.mybatis.mapper.TypeMapper;
-import com.mybatis.mapper.UserInfoMapper;
-import com.mybatis.pojo.Person;
-import com.mybatis.pojo.ProductInfo;
-import com.mybatis.pojo.Type;
-import com.mybatis.pojo.UserInfo;
+import com.mybatis.mapper.*;
+import com.mybatis.pojo.*;
 import com.mybatis.utils.MybatisUtils;
 
 import org.apache.ibatis.session.SqlSession;
@@ -320,6 +314,16 @@ public class MybatisTest {
         TypeMapper typeMapper = sqlSession.getMapper(TypeMapper.class);
         typeMapper.deleteTypeById(id);
 
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void findAdminInfoByIdTest() throws IOException{
+        int id = 1;
+        SqlSession sqlSession = MybatisUtils.getSession();
+        AdminInfoMapper adminInfoMapper = sqlSession.getMapper(AdminInfoMapper.class);
+        AdminInfo adminInfo = adminInfoMapper.findAdminInfoById(id);
+        System.out.println(adminInfo);
         sqlSession.commit();
         sqlSession.close();
     }

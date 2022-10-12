@@ -13,4 +13,6 @@ public interface CategoryMapper {
    void addCategory(Category category);
    void updateCategory(Category category);
    Category findCategoryById(int id);
+   Category findCategoryById2(int id);
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.test.mapper.BookMapper">
+
+    <insert id="addBookInfo">
+        insert into book values (#{isbn},#{bookName},#{author},#{price},#{press},#{category.cid})
+    </insert>
+    <select id="findBookById" resultType="book" parameterType="int">
+        select * from book where typeId = #{id}
+    </select>
+</mapper>

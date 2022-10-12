@@ -6,22 +6,13 @@
 <mapper namespace="com.test.mapper.CategoryMapper">
 
 
-    <resultMap id="CategoryMap" type="category">
-        <result column="id" property="cid"/>
-        <result column="cname" property="cname"/>
-        <result column="describe" property="describe"/>
-
-    </resultMap>
-    <!--    id：SQL语句的唯一标识-->
-
-    <!--   根据用户名模糊查询 -->
 
 
-    <!--    添加用户-->
-    <insert id="addCategory" parameterType="category" keyProperty="id" useGeneratedKeys="true">
+    <insert id="addCategory" keyProperty="cid" useGeneratedKeys="true">
         insert into Category(cname, describe)
         values (#{cname}, #{describe})
     </insert>
+
     <update id="updateCategory" parameterType="category">
         update Category
         <trim prefix="set" suffixOverrides="," suffix="where id = #{cid}">
@@ -35,7 +26,34 @@
     </update>
     <select id="findCategoryById" parameterType="int" resultType="category" resultMap="CategoryMap">
         <!--        <include refid="userInfoColumns"></include>-->
-
         select * from Category where id = #{id}
     </select>
+
+    <resultMap id="CategoryMap" type="category">
+        <id column="id" property="cid"/>
+        <result column="cname" property="cname"/>
+        <result column="describe" property="describe"/>
+        <collection property="book" column="id" select="com.test.mapper.BookMapper.findBookById"></collection>
+    </resultMap>
+    <select id="findCategoryById2" resultType="category" resultMap="CategoryMap2">
+        SELECT Category.*, book.bookName,book.author,book.isbn,book.press,book.id,book.price,book.typeId
+        FROM Category
+                 inner JOIN book  on Category.id = book.typeId
+        where Category.id = #{id}
+    </select>
+    <resultMap id="CategoryMap2" type="category">
+        <id column="id" property="cid"/>
+        <result column="cname" property="cname"/>
+        <result column="describe" property="describe"/>
+        <collection property="book" ofType="Book">
+            <id property="id" column="id"/>
+            <result property="typeId" column="typeId"/>
+            <result property="press" column="press"/>
+            <result property="id" column="id"/>
+            <result property="price" column="price"/>
+            <result property="author" column="author"/>
+            <result property="bookName" column="bookName"/>
+            <result property="isbn" column="isbn"/>
+        </collection>
+    </resultMap>
 </mapper>

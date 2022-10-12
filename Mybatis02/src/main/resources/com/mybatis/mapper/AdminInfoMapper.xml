@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.mybatis.mapper.AdminInfoMapper">
+
+<!--    <select id="findAdminInfoById" resultType="com.mybatis.pojo.AdminInfo">-->
+<!--        select * from admin_info,functions,powers where powers.fid = functions.id and powers.aid = admin_info.id-->
+<!--    </select>-->
+    <select id="findAdminInfoById" parameterType="int" resultMap="adminInfoMap">
+        select * from admin_info as a where id = #{id}
+    </select>
+    <resultMap id="adminInfoMap" type="adminInfo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="fs" ofType="functions" column="id" select="com.mybatis.mapper.FunctionsMapper.findFunctionsById">
+
+        </collection>
+    </resultMap>
+</mapper>

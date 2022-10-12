@@ -1,6 +1,8 @@
 package com.test.test;
 
+import com.test.mapper.BookMapper;
 import com.test.mapper.CategoryMapper;
+import com.test.po.Book;
 import com.test.po.Category;
 import com.test.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -69,6 +71,61 @@ public class MyBatisTest {
         //5.打印输出结果
         System.out.println(categoryById);
         //6.关闭sqlsession
+        sqlSession.close();
+    }
+    @Test
+    public void addBookInfoTest() throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        //4.调用接口中的方法执行sql
+        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+        Category category = new Category();
+
+        category.setCname("计算机类图书");
+        category.setDescribe("编程,程序设计");
+        categoryMapper.addCategory(category);
+
+        BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+        Book book = new Book();
+        book.setCategory(category);
+        book.setIsbn("9787556097500");
+        book.setBookName("Java程序设计");
+        book.setAuthor("贾琼");
+        book.setPrice(39);
+        book.setPress("北京理工大学出版社");
+        bookMapper.addBookInfo(book);
+        //5.打印输出结果
+        System.out.println();
+        //6.关闭sqlsession
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void findCategoryByIdTest() throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        //4.调用接口中的方法执行sql
+        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+        Category categoryById = categoryMapper.findCategoryById(23);
+
+        //5.打印输出结果
+        System.out.println(categoryById);
+        //6.关闭sqlsession
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void findCategoryById2Test() throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+
+        //4.调用接口中的方法执行sql
+        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
+        Category categoryById = categoryMapper.findCategoryById2(23);
+
+        //5.打印输出结果
+        System.out.println(categoryById);
+        //6.关闭sqlsession
+        sqlSession.commit();
         sqlSession.close();
     }
 }
