@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"></properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+      <!--  <typeAlias type="com.mybatis.pojo01.UserInfo" alias="UserInfo"></typeAlias>-->
+        <package name="com.mybatis.pojo"/>
+    </typeAliases>
+    <!-- environments元素用于环境配置，也就是数据源配置，environments元素体中可以配置多个数据库环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- transactionManager配置事务管理，type的取值可以是JDBC和MANAGED -->
+            <transactionManager type="JDBC"/>
+            <!--dataSource声明数据源  -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+<!--        <mapper resource="com/mybatis/mapper/UserInfoMapper.xml"/>-->
+        <!--<mapper class="com.mybatis.mapper.UserInfoMapper"></mapper>-->
+        <package name="com.mybatis.mapper"/>
+    </mappers>
+</configuration>

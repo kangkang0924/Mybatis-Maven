@@ -38,7 +38,7 @@ public class MybatisTest {
     }
 
     @Test
-    public void findUserByNameTest() throws IOException {
+    public void findUserByNameTest() {
         //1.读取配置文件
         //String resource = "mybatis-config.xml";
         //得到配置文件流
@@ -139,7 +139,7 @@ public class MybatisTest {
         //MybatisUtils mybatisUtils = new MybatisUtils();
 
         UserInfoMapper usermapper = sqlSession.getMapper(UserInfoMapper.class);
-        usermapper.deleteUserInfo(1);
+        usermapper.deleteUserInfo(23);
 //        int rows = sqlSession.delete("com.mybatis.mapper.UserInfoMapper.deleteUserInfo", "7");
 //
 //        if (rows > 0) {
