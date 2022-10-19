@@ -1,6 +1,6 @@
-package com.mybatis.mapper;
+package com.mybatis.mapper03;
 
-import com.mybatis.pojo.UserInfo;
+import com.mybatis.pojo03.UserInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

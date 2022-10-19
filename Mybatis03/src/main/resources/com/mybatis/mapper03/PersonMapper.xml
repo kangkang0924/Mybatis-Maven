@@ -3,21 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        namespace命名空间，包名+SQL映射文件名-->
-<mapper namespace="com.mybatis.mapper.PersonMapper">
-    <select id="findPersonById" parameterType="int" resultType="person" resultMap="personMap">
-        select *
-        from Person
-        where id = #{id}
-    </select>
-    <resultMap id="personMap" type="person">
-        <id property="id" column="id"></id>
-        <result property="name" column="name"></result>
-        <result property="age" column="age"></result>
-        <result property="sex" column="sex"></result>
-        <association select="com.mybatis.mapper.IdCardMapper.findIdCardById"
-                     column="cid" property="idCard" javaType="IdCard">
-        </association>
-    </resultMap>
+<mapper namespace="com.mybatis.mapper03.PersonMapper">
+<!--    <select id="findPersonById" parameterType="int" resultType="person" resultMap="personMap">-->
+<!--        select *-->
+<!--        from Person-->
+<!--        where id = #{id}-->
+<!--    </select>-->
+<!--    <resultMap id="personMap" type="person">-->
+<!--        <id property="id" column="id"></id>-->
+<!--        <result property="name" column="name"></result>-->
+<!--        <result property="age" column="age"></result>-->
+<!--        <result property="sex" column="sex"></result>-->
+<!--        <association select="com.mybatis.mapper.IdCardMapper.findIdCardById"-->
+<!--                     column="cid" property="idCard" javaType="IdCard">-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
     <select id="findPersonById2" parameterType="int" resultType="person" resultMap="personMap2">
         SELECT p.*, i.id as card_id, i.cno
         FROM Person as p

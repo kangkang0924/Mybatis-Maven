@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        namespace命名空间，包名+SQL映射文件名-->
-<mapper namespace="com.mybatis.mapper.ProductInfoMapper">
+<mapper namespace="com.mybatis.mapper03.ProductInfoMapper">
     <insert id="addProductInfo" parameterType="productInfo" useGeneratedKeys="true">
         insert into product_info values (#{code},#{name},#{type.id})
     </insert>
-    <select id="finProductInfoById" parameterType="int" resultType="productInfo">
-        select * from product_info where tid = #{id}
-    </select>
+<!--    <select id="finProductInfoById" parameterType="int" resultType="productInfo">-->
+<!--        select * from product_info where tid = #{id}-->
+<!--    </select>-->
 </mapper>

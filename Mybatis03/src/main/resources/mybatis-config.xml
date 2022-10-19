@@ -9,7 +9,7 @@
     </settings>
     <typeAliases>
       <!--  <typeAlias type="com.mybatis.pojo01.UserInfo" alias="UserInfo"></typeAlias>-->
-        <package name="com.mybatis.pojo"/>
+        <package name="com.mybatis.pojo03"/>
     </typeAliases>
     <!-- environments元素用于环境配置，也就是数据源配置，environments元素体中可以配置多个数据库环境 -->
     <environments default="development">
@@ -29,6 +29,6 @@
     <mappers>
 <!--        <mapper resource="com/mybatis/mapper/UserInfoMapper.xml"/>-->
         <!--<mapper class="com.mybatis.mapper.UserInfoMapper"></mapper>-->
-        <package name="com.mybatis.mapper"/>
+        <package name="com.mybatis.mapper03"/>
     </mappers>
 </configuration>

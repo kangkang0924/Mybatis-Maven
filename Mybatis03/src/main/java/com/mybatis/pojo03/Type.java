@@ -1,15 +1,19 @@
-package com.mybatis.pojo;
+package com.mybatis.pojo03;
+
+import java.util.List;
 
 /**
  * @author 韩德康~
  * @version 1.0
- * @time 2022/10/03/11:08
+ * @time 2022/10/03/11:07
  */
-public class ProductInfo {
+public class Type {
     private int id;
-    private String code;
     private String name;
-    private Type type;
+    /**
+     * 多对一映射
+     */
+    private List<ProductInfo> pis;
 
     public int getId() {
         return id;
@@ -17,14 +21,6 @@ public class ProductInfo {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -35,21 +31,20 @@ public class ProductInfo {
         this.name = name;
     }
 
-    public Type getType() {
-        return type;
+    public List<ProductInfo> getPis() {
+        return pis;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setPis(List<ProductInfo> pis) {
+        this.pis = pis;
     }
 
     @Override
     public String toString() {
-        return "ProductInfo{" +
+        return "type{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", type=" + type +
+                ", pis=" + pis +
                 '}';
     }
 }

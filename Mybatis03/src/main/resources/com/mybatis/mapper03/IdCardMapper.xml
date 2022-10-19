@@ -3,8 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        namespace命名空间，包名+SQL映射文件名-->
-<mapper namespace="com.mybatis.mapper.IdCardMapper">
-    <select id="findIdCardById" parameterType="int" resultType="IdCard">
-        select * from idcard where id = #{id}
-    </select>
+<mapper namespace="com.mybatis.mapper03.IdCardMapper">
+
+<!--    <select id="findIdCardById" parameterType="int" resultType="IdCard">-->
+    <!--        select * from idcard where id = #{id}-->
+    <!--    </select>-->
 </mapper>

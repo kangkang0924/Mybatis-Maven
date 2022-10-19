@@ -1,5 +1,7 @@
 package com.mybatis.pojo;
 
+import com.mybatis.pojo.ProductInfo;
+
 import java.util.List;
 
 /**

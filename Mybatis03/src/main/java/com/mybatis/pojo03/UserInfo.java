@@ -1,6 +1,4 @@
-package com.mybatis.pojo;
-
-import lombok.Data;
+package com.mybatis.pojo03;
 
 import java.sql.Date;
 

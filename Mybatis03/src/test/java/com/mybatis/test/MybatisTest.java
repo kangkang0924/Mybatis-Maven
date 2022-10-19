@@ -1,7 +1,7 @@
 package com.mybatis.test;
 
-import com.mybatis.mapper.*;
-import com.mybatis.pojo.*;
+import com.mybatis.mapper03.*;
+import com.mybatis.pojo03.*;
 import com.mybatis.utils.MybatisUtils;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +12,7 @@ import java.util.List;
 
 
 public class MybatisTest {
+    SqlSession sqlSession = MybatisUtils.getSession();
     //根据id查询用户信息
     @Test
     public void findUserByIdTest() throws IOException {
@@ -277,14 +278,23 @@ public class MybatisTest {
     @Test
     public void findTypeIdTest() {
 
-        SqlSession sqlSession = MybatisUtils.getSession();
 
         TypeMapper TypeMapper = sqlSession.getMapper(TypeMapper.class);
-        Type type = TypeMapper.findTypeById(1);
+        Type type = TypeMapper.findTypeById(2);
         System.out.println(type);
         //6.关闭sqlsession
         sqlSession.close();
     }
+    @Test
+    public void finProductInfoById2Test() {
+
+        ProductInfoMapper productInfoMapper = sqlSession.getMapper(ProductInfoMapper.class);
+        ProductInfo type = productInfoMapper.finProductInfoById2(2);
+        System.out.println(type);
+        //6.关闭sqlsession
+        sqlSession.close();
+    }
+
     @Test
     public void addTypeTest(){
         SqlSession sqlSession = MybatisUtils.getSession();

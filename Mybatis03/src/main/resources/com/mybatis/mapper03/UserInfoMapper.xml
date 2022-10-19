@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--        namespace命名空间，包名+SQL映射文件名-->
-<mapper namespace="com.mybatis.mapper.UserInfoMapper">
+<mapper namespace="com.mybatis.mapper03.UserInfoMapper">
 
     <sql id="userInfoColumns"> id, userName, password</sql>
     <resultMap id="userInfoMap" type="userInfo">

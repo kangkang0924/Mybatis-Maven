@@ -1,6 +1,6 @@
-package com.mybatis.mapper;
+package com.mybatis.mapper03;
 
-import com.mybatis.pojo.Functions;
+import com.mybatis.pojo03.Functions;
 
 import java.util.List;
 

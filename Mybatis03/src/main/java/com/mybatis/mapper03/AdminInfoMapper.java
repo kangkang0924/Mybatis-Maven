@@ -1,6 +1,6 @@
-package com.mybatis.mapper;
+package com.mybatis.mapper03;
 
-import com.mybatis.pojo.AdminInfo;
+import com.mybatis.pojo03.AdminInfo;
 
 /**
  * @author 韩德康~

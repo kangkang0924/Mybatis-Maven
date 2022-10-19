@@ -1,5 +1,7 @@
 package com.mybatis.pojo;
 
+import com.mybatis.pojo.IdCard;
+
 /**
  * @author 韩德康~
  * @version 1.0
